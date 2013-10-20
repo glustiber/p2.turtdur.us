@@ -21,7 +21,7 @@ class users_controller extends base_controller {
         $this->template->title   = "Sign Up";
 
         #  Set client files that need to load in the <head>
-        $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate.js');
+        $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate-signup.js');
         $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
         # Render template
@@ -53,6 +53,10 @@ class users_controller extends base_controller {
         $this->template->content = View::instance('v_users_login');
         $this->template->title   = "Login";
         $this->template->content->error = $error;
+
+        #  Set client files that need to load in the <head>
+        $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate-login.js');
+        $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
         # Render template
         echo $this->template;

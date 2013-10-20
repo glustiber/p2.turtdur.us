@@ -1,13 +1,13 @@
 <p>Please enter your e-mail and password to log in</p> 
 
-<form method='POST' action='/users/p_login'>
+<form method='POST' action='/users/p_login' id='logIn'>
 
     Email<br>
-    <input type='text' name='email'>    
+    <input type='text' name='email' class='required'>    
     <br><br>
 
     Password<br>
-    <input type='password' name='password'>
+    <input type='password' name='password' class='required'>
     <br><br>
 
     <?php if(isset($error)): ?>
