@@ -1,3 +1,5 @@
+<p>Please enter your e-mail and password to log in</p> 
+
 <form method='POST' action='/users/p_login'>
 
     Email<br>

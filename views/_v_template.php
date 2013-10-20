@@ -17,7 +17,8 @@
 	<div id="wrapper">
 
 		<div id="mainnavbar">
-		
+		<div class="mainnavbartrans">
+
 			<!-- Menu for users who are logged in -->
 	        <?php if($user): ?>
 	        	<ul class="mainnavmenu">
@@ -34,6 +35,7 @@
 
 			<a href='/' class="mainnavlogo">turtdur</a>
 
+		</div>
 		</div>
 
 		<div id="maincontent">

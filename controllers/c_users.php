@@ -15,9 +15,14 @@ class users_controller extends base_controller {
     }
 
     public function signup() {
+
         # Setup view
         $this->template->content = View::instance('v_users_signup');
         $this->template->title   = "Sign Up";
+
+        #  Set client files that need to load in the <head>
+        $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate.js');
+        $this->template->client_files_head = Utils::load_client_files($client_files_head);
 
         # Render template
         echo $this->template;
@@ -38,9 +43,8 @@ class users_controller extends base_controller {
         # Insert this user into the database 
         $user_id = DB::instance(DB_NAME)->insert("users", $_POST);
 
-        # For now, just confirm they've signed up - 
-        # You should eventually make a proper View for this
-        echo 'You\'re signed up';
+        # After user signs up, send them to the login page.
+        Router::redirect("/users/login");
 
     }
 
@@ -131,4 +135,36 @@ class users_controller extends base_controller {
         echo $this->template;
     }
 
+    public function editprofile() {
+        # Setup view
+        $this->template->content = View::instance('v_users_editprofile');
+        $this->template->title   = "Edit Profile";
+
+        # Render template
+        echo $this->template;
+    }
+
+    public function p_editprofile() {
+        /*
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+        */
+
+        
+        # More data we want stored with the user
+        $_POST['modified'] = Time::now();
+
+
+        # Insert this user into the database 
+        DB::instance(DB_NAME)->update("users", $_POST, "WHERE user_id = '".$user_id."'");
+
+        # For now, just confirm they've signed up - 
+        # You should eventually make a proper View for this
+        echo 'Profile updated';
+
+    }
+
 } # end of the class
+
+?>
