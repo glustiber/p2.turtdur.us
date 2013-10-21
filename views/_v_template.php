@@ -17,7 +17,6 @@
 	<div id="wrapper">
 
 		<div id="mainnavbar">
-		<div class="mainnavbartrans">
 
 			<!-- Menu for users who are logged in -->
 	        <?php if($user): ?>
@@ -36,7 +35,6 @@
 			<a href='/' class="mainnavlogo">turtdur</a>
 
 		</div>
-		</div>
 
 		<div id="maincontent">
 
@@ -45,10 +43,14 @@
 			<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 		</div>
+<!--
+		<div id="contentnav">
 
-		<div id="contentnav"></div>
+			<?php if(isset($navigation)) echo $navigation; ?>
 
-		<div id="footer"></div>
+		</div>
+-->
+		<div id="footerbar"></div>
 
 	</div>
 

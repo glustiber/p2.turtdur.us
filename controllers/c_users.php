@@ -125,20 +125,30 @@ class users_controller extends base_controller {
         $this->template->content = View::instance('v_users_profile');
 
         # $title is another variable used in _v_template to set the <title> of the page
-        $this->template->title = "Profile of".$this->user->first_name;
-
+        $this->template->title = "Profile of ".$this->user->first_name;
+        /*
         #  Set client files that need to load in the <head>
-        $client_files_head = Array('/css/sample-app.css');
+        $client_files_head = Array('/js/edit-profile.js');
         $this->template->client_files_head = Utils::load_client_files($client_files_head);
-
+        
         # Set client files that need to load before the closing </body> tag
-        $client_files_body = Array('/js/sample-app.js');
+        $client_files_body = Array('/js/edit-profile.js');
         $this->template->client_files_body = Utils::load_client_files($client_files_body);
-
+        */
         # Render View
         echo $this->template;
     }
+/*
+    public function p_profile() {
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
 
+        foreach($_POST as $key => $value) {
+
+        }
+    }
+*/
     public function editprofile() {
         # Setup view
         $this->template->content = View::instance('v_users_editprofile');
@@ -149,23 +159,45 @@ class users_controller extends base_controller {
     }
 
     public function p_editprofile() {
-        /*
+
+        # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+
+        # More data we want stored with the user
+        $data['modified'] = Time::now();
+
+        # Go through $_POST. If user didn't update a field, keep it the same. Otherwise, set it to new value.
+        foreach($_POST as $key => $value) {
+            if($value == "") {
+                $q = "SELECT $key
+                FROM users
+                WHERE user_id = '".$this->user->user_id."'";
+                $data[$key] = DB::instance(DB_NAME)->select_field($q);
+            }
+            else {
+                $data[$key] = $_POST[$key];
+                $data['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+            }
+        }
+/*
         echo '<pre>';
         print_r($_POST);
+        echo '</pre>';        
+
+        echo '<pre>';
+        print_r($data);
         echo '</pre>';
-        */
 
-        
-        # More data we want stored with the user
-        $_POST['modified'] = Time::now();
-
+        echo '<pre>';
+        print_r($this->user);
+        echo '</pre>';
+*/
 
         # Insert this user into the database 
-        DB::instance(DB_NAME)->update("users", $_POST, "WHERE user_id = '".$user_id."'");
+        DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '".$this->user->user_id."'");
 
-        # For now, just confirm they've signed up - 
-        # You should eventually make a proper View for this
-        echo 'Profile updated';
+        # Send them back to the main index.
+        Router::redirect("/users/profile");
 
     }
 

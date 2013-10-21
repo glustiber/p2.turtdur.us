@@ -3,7 +3,7 @@
 <form method='POST' action='/users/p_login' id='logIn'>
 
     Email<br>
-    <input type='text' name='email' class='required'>    
+    <input type='text' name='email' class='required email'>    
     <br><br>
 
     Password<br>

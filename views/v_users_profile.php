@@ -1,9 +1,7 @@
-<h1>This is the profile of <?=$user->first_name?></h1>
+<h1>My Profile</h1>
+Name: <?=$user->first_name?> <?=$user->last_name?><br>
+E-mail:     <?=$user->email?><br>
+Location:   <?=$user->location?><br>
+Website:    <?=$user->website?><br><br>
 
-<p>Name: 	 <?=$user->first_name?> <?=$user->last_name?></p>
-<p>E-mail:   <?=$user->email?></p>
-<p>Location: <?=$user->location?></p>
-<p>Website:  <?=$user->website?></p>
-<p>Bio:      <?=$user->bio?></p>
-
-<a href='/users/editprofile'>Edit profile</a>
+<a href='/users/editprofile'>Edit Profile</a>
