@@ -43,6 +43,19 @@
 			<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 		</div>
+
+		<?php if($user): ?>
+			<div id="contentnav">
+				<ul>
+					<li id='users'>Users
+					<ul>
+						<li><a href='/users/viewall'>View All</a></li>
+						<li>Following</li>
+						<li>Followers</li>
+					</ul></li>
+				</ul>	
+			</div>
+		<?php endif; ?>	
 <!--
 		<div id="contentnav">
 

@@ -24,6 +24,10 @@
     <input type='url' name='website' placeholder="<?=$user->website?>">
     <br><br>
 
+    Profile picture<br>
+    Age<br>
+    Gender<br><br>
+
     <input type='submit' value='Update'>
 
 </form>

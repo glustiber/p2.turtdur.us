@@ -138,17 +138,7 @@ class users_controller extends base_controller {
         # Render View
         echo $this->template;
     }
-/*
-    public function p_profile() {
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
 
-        foreach($_POST as $key => $value) {
-
-        }
-    }
-*/
     public function editprofile() {
         # Setup view
         $this->template->content = View::instance('v_users_editprofile');
@@ -160,45 +150,47 @@ class users_controller extends base_controller {
 
     public function p_editprofile() {
 
-        # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+        # Sanitize the user entered data
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
 
-        # More data we want stored with the user
+        # Filter post, create new array with only submitted fields
+        $data = array_filter($_POST);
+
+        # If password was updated, encrypt it
+        if(isset($data['password'])) {
+            $data['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+        }
+
+        # Set time modified to now
         $data['modified'] = Time::now();
 
-        # Go through $_POST. If user didn't update a field, keep it the same. Otherwise, set it to new value.
-        foreach($_POST as $key => $value) {
-            if($value == "") {
-                $q = "SELECT $key
-                FROM users
-                WHERE user_id = '".$this->user->user_id."'";
-                $data[$key] = DB::instance(DB_NAME)->select_field($q);
-            }
-            else {
-                $data[$key] = $_POST[$key];
-                $data['password'] = sha1(PASSWORD_SALT.$_POST['password']);
-            }
-        }
-/*
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';        
-
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($this->user);
-        echo '</pre>';
-*/
-
-        # Insert this user into the database 
+        # Update
         DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '".$this->user->user_id."'");
 
-        # Send them back to the main index.
+        # Redirect to profile.
         Router::redirect("/users/profile");
 
+    }
+
+    public function viewall() {
+        
+        $users = DB::instance(DB_NAME) -> select_rows('SELECT first_name,last_name,email,location,website FROM users');
+
+        # Setup view
+        $this->template->content = View::instance('v_users_viewall');
+        $this->template->title   = "All users";
+
+        # Render template
+        echo $this->template;
+    }
+
+    public function viewprofile() {
+        # Setup view
+        $this->template->content = View::instance('v_users_viewprofile');
+        $this->template->title   = "PROFILE";
+
+        # Render template
+        echo $this->template;
     }
 
 } # end of the class
