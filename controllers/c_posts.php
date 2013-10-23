@@ -29,7 +29,8 @@ class posts_controller extends base_controller {
         INNER JOIN users_users
         INNER JOIN users ON posts.user_id = users.user_id
         WHERE users_users.user_id != 1
-        AND posts.user_id = users_users.user_id_followed";
+        AND posts.user_id = users_users.user_id_followed
+        ORDER BY posts.created DESC";
 
     # Run the query, store the results in the variable $posts
     $posts = DB::instance(DB_NAME)->select_rows($q);

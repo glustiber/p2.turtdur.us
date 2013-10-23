@@ -19,19 +19,22 @@
 		<div id="mainnavbar">
 
 			<!-- Menu for users who are logged in -->
-	        <?php if($user): ?>
-	        	<ul class="mainnavmenu">
-	        		<li><a href='/users/profile'>profile</a></li>
-	            	<li><a href='/users/logout'>logout</a></li>
-	            </ul>
-	        <!-- Menu options for users who are not logged in -->
-	        <?php else: ?>
-	        	<ul class="mainnavmenu">
-	            	<li><a href='/users/signup'>sign up</a></li>
-	            	<li><a href='/users/login'>log in</a></li>
-	            </ul>
-	        <?php endif; ?>
+			<ul class="mainnavmenu">
+		        <?php if($user): ?>
 
+		        	<li><a href='/users/profile'>profile</a></li>
+		        	<li><a href='/users/profile'>users</a></li>
+		        	<li><a href='/users/profile'>posts</a></li>
+		            <li><a href='/users/logout'>logout</a></li>
+
+		        <!-- Menu options for users who are not logged in -->
+		        <?php else: ?>
+
+		            <li><a href='/users/signup'>sign up</a></li>
+		            <li><a href='/users/login'>log in</a></li>
+
+		        <?php endif; ?>
+	        </ul>
 			<a href='/' class="mainnavlogo">turtdur</a>
 
 		</div>
