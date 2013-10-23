@@ -34,7 +34,7 @@ A email designated to receive messages from the server. Examples:
 	define('DB_NAME', "turtduru_p2_turtdur_us"); 
 
 # Timezone
-	define('TIMEZONE', 'America/New_York');
+	define('TIMEZONE', 'America/Chicago');
 
 # If your app is going to have outgoing emails, you should fill in your SMTP settings
 # For this you could use gmail SMTP or something like http://sendgrid.com/

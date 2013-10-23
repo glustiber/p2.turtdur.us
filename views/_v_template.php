@@ -14,7 +14,7 @@
 
 <body>
 
-	<div id="wrapper">
+	<div id="container">
 
 		<div id="mainnavbar">
 
@@ -63,6 +63,7 @@
 
 		</div>
 -->
+
 		<div id="footerbar"></div>
 
 	</div>

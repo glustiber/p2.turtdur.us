@@ -18,18 +18,18 @@ class posts_controller extends base_controller {
     $this->template->title   = "All Posts";
 
     # Query
-    $q = 'SELECT
+    $q = "SELECT 
             posts.content AS content,
             posts.user_id AS post_user_id,
-            posts.created,
+            posts.created AS created,
             users_users.user_id AS follower_id,
             users.first_name,
             users.last_name
         FROM posts
         INNER JOIN users_users
         INNER JOIN users ON posts.user_id = users.user_id
-        WHERE users_users.user_id = 1
-        AND posts.user_id = users_users.user_id_followed';
+        WHERE users_users.user_id != 1
+        AND posts.user_id = users_users.user_id_followed";
 
     # Run the query, store the results in the variable $posts
     $posts = DB::instance(DB_NAME)->select_rows($q);
@@ -80,7 +80,8 @@ class posts_controller extends base_controller {
 
     # Build the query to get all the users
     $q = "SELECT *
-        FROM users";
+        FROM users
+        WHERE user_id != ".$this->user->user_id;
 
     # Execute the query to get all the users. 
     # Store the result array in the variable $users
