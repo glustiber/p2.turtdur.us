@@ -14,52 +14,45 @@
 
 <body>
 
-	<nav>
-		<ul>
-			<li><a href="#">Home</a></li>
-			<li><a href="#">Tutorials</a>
-				<ul>
-					<li><a href="#">Photoshop</a></li>
-					<li><a href="#">Illustrator</a></li>
-					<li><a href="#">Web Design</a>
-						<ul>
-							<li><a href="#">HTML</a></li>
-							<li><a href="#">CSS</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li><a href="#">Articles</a>
-				<ul>
-					<li><a href="#">Web Design</a></li>
-					<li><a href="#">User Experience</a></li>
-				</ul>
-			</li>
-			<li><a href="#">Inspiration</a></li>
-		</ul>
-	</nav>
-
 	<div id="container">
 
 		<div id="mainnavbar">
 
+		<nav>
 			<!-- Menu for users who are logged in -->
-			<ul class="mainnavmenu">
 		        <?php if($user): ?>
-
-		        	<li><a href='/users/profile'>profile</a></li>
-		        	<li><a href='/posts/users'>users</a></li>
-		        	<li><a href='/posts'>posts</a></li>
-		            <li><a href='/users/logout'>logout</a></li>
-
+			        <ul>
+			        	<li><a href='#'>profile</a>
+				        	<ul>
+				        		<li><a href='/users/profile/'>view profile</a></li>
+				        		<li><a href='/users/editprofile'>edit profile</a></li>
+				        	</ul>
+			        	</li>
+			        	<li><a href='#'>users</a>
+				        	<ul>
+				        		<li><a href='/posts/users/'>all</a></li>
+				        		<li><a href='#'>following</a></li>
+				        		<li><a href='#'>followers</a></li>
+				        	</ul>
+			        	</li>
+			        	<li><a href='/posts'>posts</a>
+			        		<ul>
+				        		<li><a href='/posts/'>post stream</a></li>
+				        		<li><a href='#'>your posts</a></li>
+				        		<li><a href='/posts/add/'>add post</a></li>
+				        	</ul>
+			        	</li>
+			            <li><a href='/users/logout'>logout</a></li>
+			        </ul>
 		        <!-- Menu options for users who are not logged in -->
 		        <?php else: ?>
-
-		            <li><a href='/users/signup'>sign up</a></li>
-		            <li><a href='/users/login'>log in</a></li>
-
+			        <ul>
+			            <li><a href='/users/signup'>sign up</a></li>
+			            <li><a href='/users/login'>log in</a></li>
+			        </ul>
 		        <?php endif; ?>
-	        </ul>
+		</nav>
+
 			<a href='/' class="mainnavlogo">turtdur</a>
 
 		</div>
@@ -71,9 +64,9 @@
 			<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
 		</div>
-
+<!--
 		<div id="footerbar"></div>
-
+-->
 	</div>
 </body>
 </html>
