@@ -23,8 +23,8 @@
 		        <?php if($user): ?>
 
 		        	<li><a href='/users/profile'>profile</a></li>
-		        	<li><a href='/users/profile'>users</a></li>
-		        	<li><a href='/users/profile'>posts</a></li>
+		        	<li><a href='/posts/users'>users</a></li>
+		        	<li><a href='/posts'>posts</a></li>
 		            <li><a href='/users/logout'>logout</a></li>
 
 		        <!-- Menu options for users who are not logged in -->
@@ -47,29 +47,8 @@
 
 		</div>
 
-		<?php if($user): ?>
-			<div id="contentnav">
-				<ul>
-					<li id='users'>Users
-					<ul>
-						<li><a href='/users/viewall'>View All</a></li>
-						<li>Following</li>
-						<li>Followers</li>
-					</ul></li>
-				</ul>	
-			</div>
-		<?php endif; ?>	
-<!--
-		<div id="contentnav">
-
-			<?php if(isset($navigation)) echo $navigation; ?>
-
-		</div>
--->
-
 		<div id="footerbar"></div>
 
 	</div>
-
 </body>
 </html>

@@ -6,7 +6,7 @@
 
     <p><?=$post['content']?></p>
 
-    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
+    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i',$this->user->timezone)?>">
         <?=Time::display($post['created'])?>
     </time>
 
