@@ -37,6 +37,7 @@ body {
 	background-color:#204291;
 	width:100%;
 	height:40px;
+	min-width:500px;
 }
 /*
 #maincontent {

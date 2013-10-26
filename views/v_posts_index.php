@@ -2,7 +2,7 @@
 
 <article class="rounded">
 
-    <h4><?=$post['first_name']?> <?=$post['last_name']?> posted:</h4>
+    <h4><a href='/posts/profile/<?=$post['post_user_id']?>'><?=$post['first_name']?> <?=$post['last_name']?></a> posted:</h4>
 
     <p><?=$post['content']?></p>
 
@@ -13,3 +13,4 @@
 </article><br>
 
 <?php endforeach; ?>
+

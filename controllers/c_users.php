@@ -150,6 +150,7 @@ class users_controller extends base_controller {
 
     public function p_editprofile() {
 
+
         # Sanitize the user entered data
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
 
@@ -159,6 +160,21 @@ class users_controller extends base_controller {
         # If password was updated, encrypt it
         if(isset($data['password'])) {
             $data['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+        }
+
+        # If profile pic was uploaded, save it in /uploads/profile-pics/, and save file path to $data['profile_pic']
+        if($_FILES["profile_pic"]["error"] == 0) {
+    
+            $uploaddir = $_SERVER['DOCUMENT_ROOT']."/uploads/profile-pics/";
+            $uploadfile = $uploaddir . $this->user->user_id . basename($_FILES['profile_pic']['name']);
+
+            if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploadfile)) {
+                $data['profile_pic'] = "/uploads/profile-pics/".$this->user->user_id.basename($_FILES['profile_pic']['name']);
+            } 
+            else {
+                echo "Possible file upload attack!\n";
+            }
+
         }
 
         # Set time modified to now
@@ -171,49 +187,7 @@ class users_controller extends base_controller {
         Router::redirect("/users/profile");
 
     }
-    /*
-    public function viewall() {
-        
-        $users = DB::instance(DB_NAME) -> select_rows('SELECT first_name,last_name,email,location,website FROM users');
 
-        # Setup view
-        $this->template->content = View::instance('v_users_viewall');
-        $this->template->title   = "All users";
-
-        # Render template
-        echo $this->template;
-    }
-
-    public function viewprofile() {
-        # Setup view
-        $this->template->content = View::instance('v_users_viewprofile');
-        $this->template->title   = "View Profile";
-
-        # Query
-        $q = "SELECT 
-                posts.content AS content,
-                posts.user_id AS post_user_id,
-                posts.created AS created,
-                users_users.user_id AS follower_id,
-                users.first_name,
-                users.last_name
-            FROM posts
-            INNER JOIN users_users
-            INNER JOIN users ON posts.user_id = users.user_id
-            WHERE users_users.user_id != 1
-            AND posts.user_id = users_users.user_id_followed
-            ORDER BY posts.created DESC";
-
-        # Run the query, store the results in the variable $posts
-        $posts = DB::instance(DB_NAME)->select_rows($q);
-
-        # Pass data to the View
-        $this->template->content->posts = $posts;
-
-        # Render template
-        echo $this->template;
-    }
-    */
 } # end of the class
 
 ?>

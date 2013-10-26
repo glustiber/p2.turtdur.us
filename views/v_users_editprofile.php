@@ -1,4 +1,4 @@
-<form method='POST' action='/users/p_editprofile'>
+<form method='POST' action='/users/p_editprofile' enctype="multipart/form-data">
 
     First Name<br>
     <input type='text' name='first_name' placeholder="<?=$user->first_name?>">
@@ -25,6 +25,12 @@
     <br><br>
 
     Profile picture<br>
+    <? if($user->profile_pic != ""): ?>
+        <img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>"/><br>
+    <? endif; ?>
+    <input type="file" name="profile_pic" />
+    <br><br>
+
     Age<br>
     Gender<br><br>
 
