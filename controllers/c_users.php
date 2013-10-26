@@ -165,7 +165,7 @@ class users_controller extends base_controller {
         # If profile pic was uploaded, save it in /uploads/profile-pics/, and save file path to $data['profile_pic']
         if($_FILES["profile_pic"]["error"] == 0) {
     
-            $uploaddir = $_SERVER['DOCUMENT_ROOT']."/uploads/profile-pics/";
+            $uploaddir = APP_PATH."/uploads/profile-pics/";
             $uploadfile = $uploaddir . $this->user->user_id . basename($_FILES['profile_pic']['name']);
 
             if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploadfile)) {
