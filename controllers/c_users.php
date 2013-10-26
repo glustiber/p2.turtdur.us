@@ -171,7 +171,7 @@ class users_controller extends base_controller {
         Router::redirect("/users/profile");
 
     }
-
+    /*
     public function viewall() {
         
         $users = DB::instance(DB_NAME) -> select_rows('SELECT first_name,last_name,email,location,website FROM users');
@@ -187,12 +187,33 @@ class users_controller extends base_controller {
     public function viewprofile() {
         # Setup view
         $this->template->content = View::instance('v_users_viewprofile');
-        $this->template->title   = "PROFILE";
+        $this->template->title   = "View Profile";
+
+        # Query
+        $q = "SELECT 
+                posts.content AS content,
+                posts.user_id AS post_user_id,
+                posts.created AS created,
+                users_users.user_id AS follower_id,
+                users.first_name,
+                users.last_name
+            FROM posts
+            INNER JOIN users_users
+            INNER JOIN users ON posts.user_id = users.user_id
+            WHERE users_users.user_id != 1
+            AND posts.user_id = users_users.user_id_followed
+            ORDER BY posts.created DESC";
+
+        # Run the query, store the results in the variable $posts
+        $posts = DB::instance(DB_NAME)->select_rows($q);
+
+        # Pass data to the View
+        $this->template->content->posts = $posts;
 
         # Render template
         echo $this->template;
     }
-
+    */
 } # end of the class
 
 ?>

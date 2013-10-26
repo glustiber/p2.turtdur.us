@@ -1,8 +1,21 @@
 <? foreach($users as $user): ?>
 
     <!-- Print this user's name -->
-    <?=$user['first_name']?> <?=$user['last_name']?>
+    <?=$user['first_name']?> <?=$user['last_name']?><br>
 
+    <? if($user['location'] != ""): ?>
+
+        <?=$user['location']?><br>
+
+    <? endif; ?>
+
+<!--
+    <?php
+        if($user['location'] != "") {
+            echo $user['location']."<br>";
+        }
+    ?>
+-->
     <!-- If there exists a connection with this user, show a unfollow link -->
     <? if(isset($connections[$user['user_id']])): ?>
         <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
@@ -11,6 +24,8 @@
     <? else: ?>
         <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
     <? endif; ?>
+
+    <a href='/posts/profile/<?=$user['user_id']?>'>View Profile</a>
 
     <br><br>
 

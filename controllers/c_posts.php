@@ -136,6 +136,49 @@ class posts_controller extends base_controller {
 
     }
 
+    public function profile($user_id) {
+
+        $this->template->content = View::instance("v_posts_profile");
+        $this->template->title   = "Profile";
+/*
+        $user_details = DB::instance(DB_NAME)->select_row("SELECT * FROM users WHERE user_id = '".$user_id"'");
+
+        print_r($user_details);
+        */
+
+        $q = "SELECT *
+            FROM users
+            WHERE user_id = ".$user_id;
+
+        $user_details = DB::instance(DB_NAME)->select_rows($q);
+/*
+        print_r($user_details);
+*/
+        $this->template->content->users = $user_details;
+
+        $q = "SELECT * 
+            FROM users_users
+            WHERE user_id = ".$this->user->user_id;
+
+        $connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
+
+        $this->template->content->connections = $connections;
+
+        $q = "SELECT *
+            FROM posts
+            WHERE user_id = '".$user_id."'
+            ORDER BY created DESC";
+
+        # Run the query, store the results in the variable $posts
+        $posts = DB::instance(DB_NAME)->select_rows($q);
+
+        # Pass data to the View
+        $this->template->content->posts = $posts;
+
+        echo $this->template;
+
+    }
+
 } # end of class
 
 ?>
