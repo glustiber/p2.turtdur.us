@@ -15,7 +15,7 @@ class posts_controller extends base_controller {
 
     # Set up the View
     $this->template->content = View::instance('v_posts_index');
-    $this->template->title   = "All Posts";
+    $this->template->title   = "poststream";
 
     $q = "SELECT 
             posts.content,
@@ -45,9 +45,27 @@ class posts_controller extends base_controller {
         WHERE user_id = ".$this->user->user_id;
 
     $likes = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
-
+/*
+    echo '<pre>';
+    print_r($likes);
+    echo '</pre>';
+*/
     $this->template->content->likes = $likes;
 
+    # figure out how many likes each post has
+    $q = "SELECT post_id_liked, 
+            COUNT(*) AS num_likes
+        FROM posts_users GROUP BY post_id_liked";
+
+    # $numlikes = DB::instance(DB_NAME)->select_rows($q);
+    $numlikes = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
+
+    $this->template->content->numlikes = $numlikes;
+/*
+    echo '<pre>';
+    print_r($numlikes);
+    echo '</pre>';
+*/
     # Render the View
     echo $this->template;
 
