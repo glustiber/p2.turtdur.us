@@ -48,7 +48,7 @@ body {
 
 #maincontent {
 	width:50%;
-	margin-top:50px;
+	margin-top:60px;
 	margin-bottom:50px;
 	margin-right:auto;
 	margin-left:auto;
@@ -204,4 +204,24 @@ article {
 	z-index: 5000;
 		font-family:sans-serif;
 	padding:10px;
+}
+
+.profilepic {
+	width:200px;
+	height:200px;
+	float:left;
+	padding-right:10px;
+}
+
+.left {
+	width:50%;
+	float:left;
+}
+
+.userspic {
+
+}
+
+.postspic {
+
 }

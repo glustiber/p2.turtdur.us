@@ -38,6 +38,15 @@ class posts_controller extends base_controller {
     # Pass data to the View
     $this->template->content->posts = $posts;
 
+    # figure out which posts this user already likes
+    $q = "SELECT *
+        FROM posts_users
+        WHERE user_id = ".$this->user->user_id;
+
+    $liked = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
+
+    $this->template->content->liked = $liked;
+
     # Render the View
     echo $this->template;
 
@@ -133,6 +142,22 @@ class posts_controller extends base_controller {
         # Send them back
         Router::redirect("/posts/users");
 
+    }
+
+    public function like($post_id_liked) {
+        $data = Array(
+            "created" => Time::now(),
+            "user_id" => $this->user->user_id,
+            "post_id_liked" => $post_id_liked
+            );
+        DB::instance(DB_NAME)->insert('posts_users', $data);
+        Router::redirect("/posts");
+    }
+
+    public function unlike($post_id_liked) {
+        $where = 'WHERE user_id = '.$this->user->user_id.' AND post_id_liked = '.$post_id_liked;
+        DB::instance(DB_NAME)->delete('posts_users', $where);
+        Router::redirect("/posts");
     }
 
     public function profile($user_id) {

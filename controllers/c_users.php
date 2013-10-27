@@ -11,10 +11,15 @@ class users_controller extends base_controller {
     } 
 
     public function index() {
-        echo "This is the index page";
+        Router::redirect('/posts/users');
     }
 
     public function signup() {
+
+        # If user is already logged in, don't let them access signup page, redirect to /
+        if($this->user) {
+            Router::redirect('/');
+        }
 
         # Setup view
         $this->template->content = View::instance('v_users_signup');
@@ -49,6 +54,12 @@ class users_controller extends base_controller {
     }
 
     public function login($error = NULL) {
+
+        # If user is already logged in, don't let them access this page, redirect to /
+        if($this->user) {
+            Router::redirect('/');
+        }
+
         # Setup view
         $this->template->content = View::instance('v_users_login');
         $this->template->title   = "Login";
@@ -91,6 +102,11 @@ class users_controller extends base_controller {
     }
 
     public function logout() {
+
+        if(!$this->user) {
+            Router::redirect('/users/login');
+        }
+
         # Generate and save a new token for next login
         $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
 
@@ -140,6 +156,12 @@ class users_controller extends base_controller {
     }
 
     public function editprofile() {
+
+        # If user is blank, they're not logged in; redirect them to the login page
+        if(!$this->user) {
+            Router::redirect('/users/login');
+        }
+
         # Setup view
         $this->template->content = View::instance('v_users_editprofile');
         $this->template->title   = "Edit Profile";
@@ -165,11 +187,25 @@ class users_controller extends base_controller {
         # If profile pic was uploaded, save it in /uploads/profile-pics/, and save file path to $data['profile_pic']
         if($_FILES["profile_pic"]["error"] == 0) {
     
-            $uploaddir = APP_PATH."/uploads/profile-pics/";
-            $uploadfile = $uploaddir . $this->user->user_id . basename($_FILES['profile_pic']['name']);
+            # $uploaddir = APP_PATH."/uploads/profile-pics/";
+            # $uploadfile = $uploaddir . $this->user->user_id . basename($_FILES['profile_pic']['name']);
 
-            if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $uploadfile)) {
-                $data['profile_pic'] = "/uploads/profile-pics/".$this->user->user_id.basename($_FILES['profile_pic']['name']);
+            $avatar_upload = APP_PATH.AVATAR_PATH.$this->user->user_id.".png";
+
+            if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $avatar_upload)) {
+
+                #$avatar_pic = new Image($avatar_upload);
+/*
+                $avatar_pic_small = APP_PATH.AVATAR_PATH.$this->user->user_id."_100_100.png";
+
+                $avatar_pic -> resize(100,100);
+
+                $avatar_pic -> save_image($avatar_pic_small, 100);
+*/
+                $data['profile_pic'] = AVATAR_PATH.$this->user->user_id.".png";
+
+               # $this->user->avatar = $avatar_pic;
+
             } 
             else {
                 echo "Possible file upload attack!\n";
@@ -182,6 +218,14 @@ class users_controller extends base_controller {
 
         # Update
         DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '".$this->user->user_id."'");
+/*
+        echo APP_PATH;
+        echo AVATAR_PATH;
+
+        echo '<pre>';
+        print_r($this->user);
+        echo '</pre>';
+*/
 
         # Redirect to profile.
         Router::redirect("/users/profile");

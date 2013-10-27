@@ -1,5 +1,6 @@
 <form method='POST' action='/users/p_editprofile' enctype="multipart/form-data">
 
+<div class="left">
     First Name<br>
     <input type='text' name='first_name' placeholder="<?=$user->first_name?>">
     <br><br>
@@ -16,6 +17,12 @@
     <input type='password' name='password'>
     <br><br>
 
+    Age<br>
+    <!--
+    <input type='text' name='age' class='required digits'>
+    <br><br>
+    -->
+
     Location<br>
     <input type='text' name='location' placeholder="<?=$user->location?>">
     <br><br>
@@ -24,16 +31,16 @@
     <input type='url' name='website' placeholder="<?=$user->website?>">
     <br><br>
 
+    Gender<br><br>
+</div>
+
     Profile picture<br>
     <? if($user->profile_pic != ""): ?>
-        <img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>"/><br>
+        <img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>" /><br>
     <? endif; ?>
     <input type="file" name="profile_pic" />
     <br><br>
 
-    Age<br>
-    Gender<br><br>
-
-    <input type='submit' value='Update'>
+    <input type='submit' value='Update Profile'>
 
 </form>
