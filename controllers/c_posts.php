@@ -20,6 +20,7 @@ class posts_controller extends base_controller {
     $q = "SELECT 
             posts.content,
             posts.created,
+            posts.post_id AS post_id,
             posts.user_id AS post_user_id,
             users_users.user_id AS follower_id,
             users.first_name,
@@ -43,9 +44,9 @@ class posts_controller extends base_controller {
         FROM posts_users
         WHERE user_id = ".$this->user->user_id;
 
-    $liked = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
+    $likes = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
 
-    $this->template->content->liked = $liked;
+    $this->template->content->likes = $likes;
 
     # Render the View
     echo $this->template;

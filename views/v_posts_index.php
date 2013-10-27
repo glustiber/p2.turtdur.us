@@ -9,15 +9,19 @@
 	<time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
 	    <?=Time::display($post['created'])?>
 	</time>
-
-	<!-- If user already likes a post, show the unlike link 
-	<? if(isset($liked[$user->user_id])): ?>
-    <a href='/posts/unlike/<?=$user->user_id?>'>unlike</a>
-    <!-- Otherwise, show the like link 
-    <? else: ?>
-        <a href='/posts/like/<?=$user->user_id?>'>like</a>
-    <? endif; ?>
+<!--
+	<p><?=$post['post_id']?></p>
+	<p><?=$liked?></p>
 -->
+
+	<!-- If user already likes a post, show the unlike link -->
+	<? if(isset($likes[$post['post_id']])): ?>
+    	<a href='/posts/unlike/<?=$post['post_id']?>'>unlike</a>
+    <!-- Otherwise, show the like link -->
+    <? else: ?>
+        <a href='/posts/like/<?=$post['post_id']?>'>like</a>
+    <? endif; ?>
+
 </article><br>
 
 <?php endforeach; ?>
