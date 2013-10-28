@@ -95,8 +95,45 @@ class posts_controller extends base_controller {
         # Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
-        # Quick and dirty feedback
-        echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+        # Redirect to profile.
+        Router::redirect("/users/profile");
+
+    }
+
+    public function edit($post_id) {
+
+        # Setup view
+        $this->template->content = View::instance('v_posts_edit');
+        $this->template->title   = "Edit Post";
+
+        $q = "SELECT content
+            FROM posts
+            WHERE post_id = ".$post_id;
+
+        $post_content = DB::instance(DB_NAME)->select_field($q);
+
+        $this->template->content->post_id = $post_id;
+        $this->template->content->post_content = $post_content;
+/*
+        echo '<pre>';
+        print_r($post_content);
+        echo '</pre>';
+*/
+        # Render template
+        echo $this->template;
+
+    }
+
+    public function p_edit($post_id) {
+
+        # Unix timestamp of when this post was created / modified
+        $_POST['modified'] = Time::now();
+
+        # Update
+        DB::instance(DB_NAME)->update("posts", $_POST, "WHERE post_id = '".$post_id."'");
+
+        # Redirect to profile.
+        Router::redirect("/users/profile");
 
     }
 
@@ -219,6 +256,17 @@ class posts_controller extends base_controller {
         $this->template->content->posts = $posts;
 
         echo $this->template;
+
+    }
+
+    public function delete($post_id) {
+
+        # Delete this connection
+        $where_condition = 'WHERE post_id = '.$post_id;
+        DB::instance(DB_NAME)->delete('posts', $where_condition);
+
+        # Send them back
+        Router::redirect("/users/profile");
 
     }
 

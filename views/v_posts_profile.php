@@ -18,7 +18,7 @@
 
 <?php foreach($posts as $post): ?>
 
-<article class="rounded">
+<article>
 
     <!--<h4><?=$post['first_name']?> <?=$post['last_name']?> posted:</h4>-->
 

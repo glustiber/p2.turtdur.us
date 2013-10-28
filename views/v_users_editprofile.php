@@ -17,12 +17,6 @@
     <input type='password' name='password'>
     <br><br>
 
-    Age<br>
-    <!--
-    <input type='text' name='age' class='required digits'>
-    <br><br>
-    -->
-
     Location<br>
     <input type='text' name='location' placeholder="<?=$user->location?>">
     <br><br>

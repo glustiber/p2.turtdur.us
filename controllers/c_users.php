@@ -151,6 +151,26 @@ class users_controller extends base_controller {
         $client_files_body = Array('/js/edit-profile.js');
         $this->template->client_files_body = Utils::load_client_files($client_files_body);
         */
+
+        $q = "SELECT *
+            FROM posts
+            WHERE user_id = '".$this->user->user_id."'
+            ORDER BY created DESC";
+
+        $posts = DB::instance(DB_NAME)->select_rows($q);
+
+        $this->template->content->posts = $posts;
+
+        # figure out how many likes each post has
+        $q = "SELECT post_id_liked, 
+            COUNT(*) AS num_likes
+        FROM posts_users GROUP BY post_id_liked";
+
+        # $numlikes = DB::instance(DB_NAME)->select_rows($q);
+        $numlikes = DB::instance(DB_NAME)->select_array($q, 'post_id_liked');
+
+        $this->template->content->numlikes = $numlikes;
+
         # Render View
         echo $this->template;
     }
@@ -186,22 +206,21 @@ class users_controller extends base_controller {
 
         # If profile pic was uploaded, save it in /uploads/profile-pics/, and save file path to $data['profile_pic']
         if($_FILES["profile_pic"]["error"] == 0) {
-    
-            # $uploaddir = APP_PATH."/uploads/profile-pics/";
-            # $uploadfile = $uploaddir . $this->user->user_id . basename($_FILES['profile_pic']['name']);
 
             $avatar_upload = APP_PATH.AVATAR_PATH.$this->user->user_id.".png";
 
             if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $avatar_upload)) {
 
-                #$avatar_pic = new Image($avatar_upload);
-/*
-                $avatar_pic_small = APP_PATH.AVATAR_PATH.$this->user->user_id."_100_100.png";
+                $avatar_pic = new Image($avatar_upload);
 
-                $avatar_pic -> resize(100,100);
+                #$avatar_pic_small = APP_PATH.AVATAR_PATH.$this->user->user_id."_small.png";
 
-                $avatar_pic -> save_image($avatar_pic_small, 100);
-*/
+                #$avatar_pic -> resize(100,100);
+
+                #$avatar_pic -> display();
+
+                #$avatar_pic -> save_image(APP_PATH.AVATAR_PATH.$this->user->user_id."_small.png", 100);
+
                 $data['profile_pic'] = AVATAR_PATH.$this->user->user_id.".png";
 
                # $this->user->avatar = $avatar_pic;
@@ -218,14 +237,6 @@ class users_controller extends base_controller {
 
         # Update
         DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '".$this->user->user_id."'");
-/*
-        echo APP_PATH;
-        echo AVATAR_PATH;
-
-        echo '<pre>';
-        print_r($this->user);
-        echo '</pre>';
-*/
 
         # Redirect to profile.
         Router::redirect("/users/profile");
