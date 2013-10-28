@@ -106,31 +106,39 @@ class posts_controller extends base_controller {
         $this->template->content = View::instance('v_posts_edit');
         $this->template->title   = "Edit Post";
 
-        $q = "SELECT content
+        $q = "SELECT content, user_id, post_id
             FROM posts
             WHERE post_id = ".$post_id;
 
-        $post_content = DB::instance(DB_NAME)->select_field($q);
+        $post_data = DB::instance(DB_NAME)->select_row($q);
 
-        $this->template->content->post_id = $post_id;
-        $this->template->content->post_content = $post_content;
-/*
-        echo '<pre>';
-        print_r($post_content);
-        echo '</pre>';
-*/
-        # Render template
-        echo $this->template;
+        # make sure users are only editing their own posts & aren't trying to edit other peoples' posts
+        if($post_data['user_id'] == $this->user->user_id) {
+
+            # pass the post data to the view
+            $this->template->content->post_data = $post_data;
+
+            # Render template
+            echo $this->template;
+
+        }
+        else {
+            Router::redirect("/");
+        }
 
     }
 
-    public function p_edit($post_id) {
+    public function p_edit($user_id, $post_id) {
 
         # Unix timestamp of when this post was created / modified
         $_POST['modified'] = Time::now();
 
-        # Update
-        DB::instance(DB_NAME)->update("posts", $_POST, "WHERE post_id = '".$post_id."'");
+        # make sure users are only editing their own posts & aren't trying to edit other peoples' posts
+        # this might be unnecessary in p_edit???
+        if($user_id == $this->user->user_id) {
+            # Update
+            DB::instance(DB_NAME)->update("posts", $_POST, "WHERE post_id = '".$post_id."'");
+        }
 
         # Redirect to profile.
         Router::redirect("/users/profile");
