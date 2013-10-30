@@ -15,7 +15,7 @@
 			<strong>Location:</strong> <?=$user->location?><br>
 		<? endif; ?>
 		<? if($user->website != ""): ?>
-			<strong>Website:</strong> <?=$user->website?><br>
+			<strong>Website:</strong> <a href="<?=$user->website?>"><?=$user->website?></a><br>
 		<? endif; ?><br>
 
 		<a href='/users/editprofile'>Edit Profile</a>

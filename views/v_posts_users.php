@@ -1,3 +1,5 @@
+<h2>list of all users:</h2>
+
 <? foreach($users as $user): ?>
 
     <!-- Print this user's name -->

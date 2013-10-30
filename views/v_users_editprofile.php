@@ -30,7 +30,7 @@
 
     Profile picture<br>
     <? if($user->profile_pic != ""): ?>
-        <img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>" /><br>
+        <div class="profile-pic"><img src="<?=$user->profile_pic?>" alt="<?=basename($user->profile_pic)?>" /><br></div>
     <? endif; ?>
     <input type="file" name="profile_pic" />
     <br><br>

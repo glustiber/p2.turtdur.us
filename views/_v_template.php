@@ -13,60 +13,60 @@
 </head>
 
 <body>
+		<header>
 
-	<div id="container">
+		<a href='/' id="logo">turtdur</a>
 
-		<div id="mainnavbar">
+			<nav>
+				<!-- Menu for users who are logged in -->
+			        <?php if($user): ?>
+				        <ul>
+				        	<li><a href='#'>profile</a>
+					        	<ul>
+					        		<li><a href='/users/profile/'>view profile</a></li>
+					        		<li><a href='/users/editprofile'>edit profile</a></li>
+					        	</ul>
+				        	</li>
+				        	<li><a href='#'>users</a>
+					        	<ul>
+					        		<li><a href='/posts/users/'>all</a></li>
+					        		<li><a href='#'>following</a></li>
+					        		<li><a href='#'>followers</a></li>
+					        	</ul>
+				        	</li>
+				        	<li><a href='/posts'>posts</a>
+				        		<ul>
+					        		<li><a href='/posts/'>post stream</a></li>
+					        		<li><a href='#'>your posts</a></li>
+					        		<li><a href='/posts/add/'>add post</a></li>
+					        	</ul>
+				        	</li>
+				            <li><a href='/users/logout'>logout</a></li>
+				        </ul>
+			        <!-- Menu options for users who are not logged in -->
+			        <?php else: ?>
+				        <ul>
+				            <li><a href='/users/signup'>sign up</a></li>
+				            <li><a href='/users/login'>log in</a></li>
+				        </ul>
+			        <?php endif; ?>
+			</nav>
 
-		<nav>
-			<!-- Menu for users who are logged in -->
-		        <?php if($user): ?>
-			        <ul>
-			        	<li><a href='#'>profile</a>
-				        	<ul>
-				        		<li><a href='/users/profile/'>view profile</a></li>
-				        		<li><a href='/users/editprofile'>edit profile</a></li>
-				        	</ul>
-			        	</li>
-			        	<li><a href='#'>users</a>
-				        	<ul>
-				        		<li><a href='/posts/users/'>all</a></li>
-				        		<li><a href='#'>following</a></li>
-				        		<li><a href='#'>followers</a></li>
-				        	</ul>
-			        	</li>
-			        	<li><a href='/posts'>posts</a>
-			        		<ul>
-				        		<li><a href='/posts/'>post stream</a></li>
-				        		<li><a href='#'>your posts</a></li>
-				        		<li><a href='/posts/add/'>add post</a></li>
-				        	</ul>
-			        	</li>
-			            <li><a href='/users/logout'>logout</a></li>
-			        </ul>
-		        <!-- Menu options for users who are not logged in -->
-		        <?php else: ?>
-			        <ul>
-			            <li><a href='/users/signup'>sign up</a></li>
-			            <li><a href='/users/login'>log in</a></li>
-			        </ul>
-		        <?php endif; ?>
-		</nav>
+		</header>
 
-			<a href='/' class="mainnavlogo">turtdur</a>
-
-		</div>
-
-		<div id="maincontent">
+		<section>
 
 			<?php if(isset($content)) echo $content; ?>
 
 			<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
-		</div>
+		</section>
 <!--
-		<div id="footerbar"></div>
+		<div class="footer-bar">
+
+			<p class="footer-text">Copyright &copy <?=Time::display(Time::now(), 'Y')?> turtdur.us</p>
+
+		</div>
 -->
-	</div>
 </body>
 </html>
