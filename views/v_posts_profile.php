@@ -1,4 +1,6 @@
-<? foreach($users as $user): ?>    
+<? foreach($users as $user): ?>  
+
+    <h2><?=$user['first_name']?> <?=$user['last_name']?>'s Profile</h2>  
 
     Name: <?=$user['first_name']?> <?=$user['last_name']?><br>
     E-mail: <?=$user['email']?><br>
@@ -15,6 +17,8 @@
     <? endif; ?>
 
 <?endforeach;?><br><br>
+
+<h2><?=$user['first_name']?> <?=$user['last_name']?>'s Posts</h2>
 
 <?php foreach($posts as $post): ?>
 

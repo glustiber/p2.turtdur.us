@@ -1,3 +1,5 @@
+<h2>Edit Post</h2>
+
 <form method='POST' action='/posts/p_edit/<?=$post_data['user_id']?>/<?=$post_data['post_id']?>'>
 
     <label for='content'>Edit Post:</label><br>

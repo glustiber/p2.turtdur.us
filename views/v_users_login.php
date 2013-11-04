@@ -1,12 +1,14 @@
-<p>Please enter your e-mail and password to log in</p> 
+<h2>Log In</h2>
+
+<p>Please enter your e-mail and password to log in.</p><br> 
 
 <form method='POST' action='/users/p_login' id='logIn'>
 
-    Email<br>
+    E-mail:<br>
     <input type='text' name='email' class='required email'>    
     <br><br>
 
-    Password<br>
+    Password:<br>
     <input type='password' name='password' class='required'>
     <br><br>
 

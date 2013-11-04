@@ -160,7 +160,11 @@ class users_controller extends base_controller {
         $posts = DB::instance(DB_NAME)->select_rows($q);
 
         $this->template->content->posts = $posts;
-
+/*
+        echo '<pre>';
+        print_r($posts);
+        echo '</pre>';
+*/
         # figure out how many likes each post has
         $q = "SELECT post_id_liked, 
             COUNT(*) AS num_likes

@@ -2,12 +2,22 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;} body {line-height: 1;}ol, ul{list-style:none;} blockquote, q{quotes:none;} blockquote:before, blockquote:after, q:before, q:after{content:'';content:none;} :focus{outline:0;} ins{text-decoration:none;} del{text-decoration:line-through;} table{border-collapse:collapse; border-spacing:0;}
 
 /*MAIN*/
+
+html, body {
+	max-width:650px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
 body { 
 	font-size: 1.05em;
 	line-height: 1.25em;
 	font-family: Helvetica Neue, Helvetica, Arial;
-	background: #f9f9f9;
+	/*background: #f9f9f9;*/
 	color: #555;
+	background:#CCCCCC;
+
 }
 
 img {
@@ -19,6 +29,7 @@ img {
 header {
 	top:0px;
 	left:0px;
+	right:0px;
 	position:fixed;
 	box-shadow:0px 1px 5px rgba(0,0,0,0.25);
 	z-index: 5000;
@@ -45,9 +56,13 @@ nav {
 }
 
 a {
-	color: #555;
+	color: #2262AD;
 	text-decoration: none;
 	font-weight: bold;
+}
+
+a:hover {
+	color:red;
 }
 
 ul {
@@ -61,10 +76,20 @@ li {
 }
 
 section {
-	margin: 53px auto 40px;
-	max-width: 980px;
+	margin: 50px auto -50px;
+	max-width: 550px;
 	position: relative;
 	padding: 10px 50px;
+	border-right:1.5px solid;
+	border-left:1.5px solid;
+	box-shadow:0px 1px 5px rgba(0,0,0,0.25);
+	background-color:#FFFFFF;
+	min-height:100%;
+}
+
+section h2 {
+	
+	text-align:center;
 }
 
 h1 {
@@ -93,18 +118,24 @@ p {
 
 #menu-icon {
 
-	display: hidden;
-	width: 40px;
-	height: 40px;
-	background: #4C8FEC url(../uploads/menu-icon.png) center;
-
+	display: none;
+	width: 60px;
+	height: 50px;
+	color:#2262AD;
+	margin:10px;
 }
 
 a:hover#menu-icon {
 
-	background-color: #444;
-	border-radius: 4px 4px 0 0;
+	color:red;
 
+}
+
+#menu-icon span {
+	width:40px;
+	height:40px;
+	cursor:pointer;
+	outline: medium none;
 }
 
 ul li a {
@@ -129,7 +160,7 @@ li > ul {
 }
 
 li a:hover {
-	color:#2262AD;
+	color:red;
 }
 
 li:hover ul {
@@ -150,11 +181,24 @@ li ul li {
 
 		}	
 			nav ul ul li a:hover {
-				color: #2262AD;
+				color: red;
 			}
 
 .profile-pic {
 	width:200px;
+	/*box-shadow:0px 1px 5px rgba(0,0,0,0.25);
+	border:2px solid #555;*/
+	z-index:5000;
+	float:left;
+	clear:left;
+	margin:0 1em;
+}
+
+.profile-info {
+	/*box-shadow:0px 1px 5px rgba(0,0,0,0.25);
+	border:2px solid #555;*/
+	/*z-index:5000;*/
+	float:left;
 }
 
 .footer-bar {
@@ -167,12 +211,30 @@ li ul li {
 	width:100%;
 	height:25px;
 	border-top: 2px solid #555;
+	bottom:0px;
+	position:relative;
 }
 
 .footer-text {
 	text-align:center;
 
 }
+/*
+.profile {
+	z-index:5000;
+	box-shadow:0px 1px 5px rgba(0,0,0,0.25);
+	border:2px solid #555;
+}
+*/
+.profile a {
+	color: #2262AD;
+}
+
+.profile a:hover {
+	color:red;
+}
+
+
 
 .post {
 	background:#fff;
@@ -182,10 +244,15 @@ li ul li {
 	margin-left:2.5em;
 	margin-right:2.5em;
 	padding:5px;
+	z-index:5000;
+}
+
+.post a {
+	color: #2262AD;
 }
 
 .post a:hover {
-		color:#2262AD;
+		color:red;
 }
 
 .post-avatar {
@@ -193,6 +260,18 @@ li ul li {
 	float:left;
 	clear:left;
 	padding:5px;
+}
+
+.post h4 {
+	line-height:2em;
+}
+
+.post .content {
+
+}
+
+.time-likes {
+	line-height:2em;
 }
 
 br.clearme { 
@@ -203,43 +282,57 @@ br.clearme {
   display: block
 }
 
-
-
-/*
-nav ul li:hover > ul {
-	display: block;
+header a:hover {
+	color:red;
 }
 
-nav ul li a {
-	display: block;
-	padding: 0px;
-	color: #555; 
-	text-decoration: none;
-	font-family:sans-serif;
-}
 
-nav ul ul {
-	background: #f9f9f9; 
-	border-radius: 0px; 
-	padding: 0;
-	position: absolute; 
-	top: 100%;
-	box-shadow:0px 1px 5px rgba(0,0,0,0.25);
-}
+@media only screen and (max-width : 550px) {
 
-	nav ul ul li {
-		float: none; 
-		position: relative;
+	header {
+
+		/*position: absolute;*/
+
 	}
-		nav ul ul li a {
-			padding: 10px 40px;
-			color: #555;
-		}	
-			nav ul ul li a:hover {
-				background: #fff;
-				color: #2262AD;
-			}
-nav ul ul ul {
-	position: absolute; left: 100%; top:0;
+
+	#menu-icon {
+
+		display:inline-block;
+
+	}
+
+	nav ul, nav:active ul { 
+
+		display: none;
+		position: absolute;
+		background: #fff;
+		border: 3px solid #555;
+		right: 0px;
+		top: 50px;
+		width: 50%;
+		box-shadow:0px 1px 5px rgba(0,0,0,0.25);
+		z-index:5000;
+
+	}
+
+	nav li {
+
+		text-align: center;
+		width: 100%;
+		padding: 10px 0;
+		margin: 0px;
+
+	}
+
+	nav:hover ul {
+
+		display: block;
+
+	}
+
+	nav:hover ul ul {
+		display:none;
+	}
+
+
 }
-*/

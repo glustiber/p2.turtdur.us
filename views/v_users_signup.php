@@ -1,20 +1,22 @@
-<p>Please fill out the information below to sign up.</p>
+<h2>Sign Up</h2>
+
+<p>Please fill out the information below to sign up.</p><br>
 
 <form method='POST' action='/users/p_signup' id='signUp'>
 
-    First Name<br>
+    First Name:<br>
     <input type='text' name='first_name' class='required'>
     <br><br>
 
-    Last Name<br>
+    Last Name:<br>
     <input type='text' name='last_name' class='required'>
     <br><br>
 
-    Email<br>
+    E-mail:<br>
     <input type='text' name='email' class='required email'>
     <br><br>
 
-    Password<br>
+    Password:<br>
     <input type='password' name='password' class='required'>
     <br><br>
 

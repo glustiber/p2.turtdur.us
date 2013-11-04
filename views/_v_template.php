@@ -18,6 +18,9 @@
 		<a href='/' id="logo">turtdur</a>
 
 			<nav>
+
+				<a href="#" id="menu-icon">menu</a>
+
 				<!-- Menu for users who are logged in -->
 			        <?php if($user): ?>
 				        <ul>
@@ -56,11 +59,11 @@
 
 		<section>
 
-			<?php if(isset($content)) echo $content; ?>
+				<?php if(isset($content)) echo $content; ?>
 
-			<?php if(isset($client_files_body)) echo $client_files_body; ?>
-
+				<?php if(isset($client_files_body)) echo $client_files_body; ?>
 		</section>
+		<br class="clearme">
 <!--
 		<div class="footer-bar">
 
