@@ -5,18 +5,11 @@
     <!-- Print this user's name -->
     <?=$user['first_name']?> <?=$user['last_name']?><br>
 
-    <? if($user['location'] != ""): ?>
+<!--    <? if($user['location'] != ""): ?>
 
         <?=$user['location']?><br>
 
     <? endif; ?>
-
-<!--
-    <?php
-        if($user['location'] != "") {
-            echo $user['location']."<br>";
-        }
-    ?>
 -->
     <!-- If there exists a connection with this user, show a unfollow link -->
     <? if(isset($connections[$user['user_id']])): ?>
@@ -25,7 +18,7 @@
     <!-- Otherwise, show the follow link -->
     <? else: ?>
         <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
-    <? endif; ?>
+    <? endif; ?>&#149
 
     <a href='/posts/profile/<?=$user['user_id']?>'>View Profile</a>
 

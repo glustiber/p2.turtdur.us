@@ -1,37 +1,56 @@
 <? foreach($users as $user): ?>  
 
-    <h2><?=$user['first_name']?> <?=$user['last_name']?>'s Profile</h2>  
+    <h2><?=$user['first_name']?> <?=$user['last_name']?>'s Profile</h2> 
 
-    Name: <?=$user['first_name']?> <?=$user['last_name']?><br>
-    E-mail: <?=$user['email']?><br>
-    <? if($user['location'] != ""): ?> Location: <?=$user['location']?><br> <? endif; ?>
-    <? if($user['website'] != ""): ?> Website: <?=$user['website']?><br> <? endif; ?>
-
-    <!-- If there exists a connection with this user, show a unfollow link -->
-    <? if(isset($connections[$user['user_id']])): ?>
-        <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
-
-    <!-- Otherwise, show the follow link -->
-    <? else: ?>
-        <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+    <? if($user['profile_pic'] != ""): ?>
+        <div class="profile-pic">
+            <img src="<?=$user['profile_pic']?>" alt="<?=basename($user['profile_pic'])?>" class="profile-image"/>
+        </div>
     <? endif; ?>
 
-<?endforeach;?><br><br>
+    <div class="profile-info">
+        Name: <?=$user['first_name']?> <?=$user['last_name']?><br>
+        E-mail: <?=$user['email']?><br>
+        <? if($user['location'] != ""): ?> Location: <?=$user['location']?><br> <? endif; ?>
+        <? if($user['website'] != ""): ?> Website: <?=$user['website']?><br> <? endif; ?>
+        <!--
+        <? if(isset($connections[$user['user_id']])): ?>
+            <a href='/posts/unfollow/<?=$user['user_id']?>'>Unfollow</a>
+        <? else: ?>
+            <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
+        <? endif; ?> -->
+    </div>
+<br class="clearme">
+<?endforeach;?>
 
 <h2><?=$user['first_name']?> <?=$user['last_name']?>'s Posts</h2>
 
-<?php foreach($posts as $post): ?>
+<? if(empty($posts)): ?>
+    <?=$user['first_name']?> <?=$user['last_name']?> has not yet made any posts.
+<? else: ?>
 
-<article>
+    <?php foreach($posts as $post): ?>
 
-    <!--<h4><?=$post['first_name']?> <?=$post['last_name']?> posted:</h4>-->
+    <article class="post">
 
-    <p><?=$post['content']?></p>
+        <!--<h4><?=$post['first_name']?> <?=$post['last_name']?> posted:</h4>-->
 
-    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-        <?=Time::display($post['created'])?>
-    </time>
+        <p><?=$post['content']?></p>
 
-</article><br>
+        <? if(isset($numlikes[$post['post_id']])): ?>
+            <? if($numlikes[$post['post_id']]['num_likes'] == 1): ?>
+                <?=$numlikes[$post['post_id']]['num_likes']?> like
+            <? else: ?>
+                <?=$numlikes[$post['post_id']]['num_likes']?> likes
+            <? endif; ?>
+        <? else: ?>
+            0 likes
+        <? endif; ?>&#149
 
-<?php endforeach; ?>
+        <?=Time::display($post['created'],'m/d/Y')?> &#149
+        <?=Time::display($post['created'],'g:i a')?>
+
+    </article><br>
+
+    <?php endforeach; ?>
+<? endif; ?>

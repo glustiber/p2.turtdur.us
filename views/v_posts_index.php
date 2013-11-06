@@ -1,17 +1,21 @@
-	<h2>posts of people you are following:</h2>
+	<h2>poststream:</h2>
+
+	<?php if(empty($posts)): ?>
+		<h3><a href="/posts/users">Click here</a> to follow users and add them to your post stream.</h3>
+	<?php else: ?>	
 
 	<?php foreach($posts as $post): ?>
 
-	<article>
+	<article class="post">
 
-	<div class="post-avatar"><img src="http://placekitten.com/300/300"></div>
+	<!--<div class="post-avatar"><img src="http://placekitten.com/300/300"></div>-->
 
-	<!--	<? if($post['profile_pic'] != ""): ?>
+		<? if($post['profile_pic'] != ""): ?>
 			<div class="post-avatar">	
 				<img src="<?=$post['profile_pic']?>" alt="<?=basename($post['profile_pic'])?>">
 		</div>
 
-		<? endif; ?>-->
+		<? endif; ?>
 
 		<h4><a href='/posts/profile/<?=$post['post_user_id']?>'><?=$post['first_name']?> <?=$post['last_name']?></a>: </h4>
 
@@ -44,6 +48,8 @@
 			<?=Time::display($post['created'],'g:i a')?>
 		</div>
 	<br class="clearme">
-	</article><hr>
+	</article><br>
 
 	<?php endforeach; ?>
+
+	<?php endif; ?>

@@ -14,7 +14,7 @@ class users_controller extends base_controller {
         Router::redirect('/posts/users');
     }
 
-    public function signup() {
+    public function signup($error = NULL) {
 
         # If user is already logged in, don't let them access signup page, redirect to /
         if($this->user) {
@@ -24,6 +24,7 @@ class users_controller extends base_controller {
         # Setup view
         $this->template->content = View::instance('v_users_signup');
         $this->template->title   = "Sign Up";
+        $this->template->content->error = $error;
 
         #  Set client files that need to load in the <head>
         $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate-signup.js','/js/jstz.min.js');
@@ -34,6 +35,18 @@ class users_controller extends base_controller {
     }
 
     public function p_signup() {
+
+        $q = "SELECT email 
+            FROM users";
+
+        $emails = DB::instance(DB_NAME)->select_rows($q);
+
+        foreach ($emails as $email) {
+            if($email['email'] == $_POST['email']) {
+                # Note the addition of the parameter "error"
+                Router::redirect("/users/signup/error"); 
+            }
+        }
 
         # More data we want stored with the user
         $_POST['created']  = Time::now();
@@ -190,12 +203,15 @@ class users_controller extends base_controller {
         $this->template->content = View::instance('v_users_editprofile');
         $this->template->title   = "Edit Profile";
 
+        #  Set client files that need to load in the <head>
+        $client_files_head = Array('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js','http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js','/js/validate-editprofile.js');
+        $this->template->client_files_head = Utils::load_client_files($client_files_head);
+
         # Render template
         echo $this->template;
     }
 
     public function p_editprofile() {
-
 
         # Sanitize the user entered data
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
@@ -208,7 +224,7 @@ class users_controller extends base_controller {
             $data['password'] = sha1(PASSWORD_SALT.$_POST['password']);
         }
 
-        # If profile pic was uploaded, save it in /uploads/profile-pics/, and save file path to $data['profile_pic']
+        # If profile pic was uploaded, save it in /uploads/avatars/, and save file path to $data['profile_pic']
         if($_FILES["profile_pic"]["error"] == 0) {
 
             $avatar_upload = APP_PATH.AVATAR_PATH.$this->user->user_id.".png";
@@ -217,17 +233,7 @@ class users_controller extends base_controller {
 
                 $avatar_pic = new Image($avatar_upload);
 
-                #$avatar_pic_small = APP_PATH.AVATAR_PATH.$this->user->user_id."_small.png";
-
-                #$avatar_pic -> resize(100,100);
-
-                #$avatar_pic -> display();
-
-                #$avatar_pic -> save_image(APP_PATH.AVATAR_PATH.$this->user->user_id."_small.png", 100);
-
                 $data['profile_pic'] = AVATAR_PATH.$this->user->user_id.".png";
-
-               # $this->user->avatar = $avatar_pic;
 
             } 
             else {

@@ -24,23 +24,22 @@
 				<!-- Menu for users who are logged in -->
 			        <?php if($user): ?>
 				        <ul>
-				        	<li><a href='#'>profile</a>
+				        	<li><a href='/users/profile'>profile</a>
 					        	<ul>
 					        		<li><a href='/users/profile/'>view profile</a></li>
 					        		<li><a href='/users/editprofile'>edit profile</a></li>
 					        	</ul>
 				        	</li>
-				        	<li><a href='#'>users</a>
-					        	<ul>
+				        	<li><a href='/posts/users'>users</a>
+					        	<!--<ul>
 					        		<li><a href='/posts/users/'>all</a></li>
 					        		<li><a href='#'>following</a></li>
 					        		<li><a href='#'>followers</a></li>
-					        	</ul>
+					        	</ul>-->
 				        	</li>
 				        	<li><a href='/posts'>posts</a>
 				        		<ul>
 					        		<li><a href='/posts/'>post stream</a></li>
-					        		<li><a href='#'>your posts</a></li>
 					        		<li><a href='/posts/add/'>add post</a></li>
 					        	</ul>
 				        	</li>

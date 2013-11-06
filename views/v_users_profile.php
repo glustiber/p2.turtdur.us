@@ -22,7 +22,7 @@
 
 	</div>
 <br class="clearme">
-
+<hr>
 <div class="profile-posts">
 
 	<h2>My Posts</h2>
@@ -41,9 +41,8 @@
 
 		    <p><?=$post['content']?></p>
 
-		    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-		        <?=Time::display($post['created'])?>
-		    </time>
+        <?=Time::display($post['created'],'m/d/Y')?> &#149
+        <?=Time::display($post['created'],'g:i a')?>
 
 			<p>
 
